@@ -1,13 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using YamlDotNet.Serialization;
 
 namespace DynamicObjects.Models
 {
     public class Field
     {
-        public Field() { }
+        public Field()
+        {
+        }
 
         public Field(string name, InputType type)
         {

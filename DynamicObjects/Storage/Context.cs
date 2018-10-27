@@ -1,6 +1,6 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
-using Microsoft.EntityFrameworkCore;
 
 namespace DynamicObjects.Storage
 {
@@ -17,7 +17,7 @@ namespace DynamicObjects.Storage
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            var entityMethod = typeof(ModelBuilder).GetMethod("Entity");        
+            var entityMethod = typeof(ModelBuilder).GetMethod("Entity");
 
             foreach (var type in _entityTypes)
             {

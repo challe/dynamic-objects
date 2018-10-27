@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace DynamicObjects.Models
 {
     public class DynamicObject
     {
-        public DynamicObject() { }
+        public DynamicObject()
+        {
+        }
 
         public DynamicObject(string name, List<Field> fields)
         {

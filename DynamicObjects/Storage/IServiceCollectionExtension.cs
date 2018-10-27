@@ -1,7 +1,6 @@
 ﻿using DynamicObjects.Storage.Repositories;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Options;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace DynamicObjects.Storage
 {

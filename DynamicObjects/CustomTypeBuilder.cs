@@ -1,12 +1,9 @@
 ﻿using DynamicObjects.Models;
-using Microsoft.CSharp;
 using System;
-using System.CodeDom;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Reflection.Emit;
-using System.Text;
 
 namespace DynamicObjects
 {
@@ -27,16 +24,16 @@ namespace DynamicObjects
 
         public static Type GetType(string simpleTypeName)
         {
-            if(SystemTypes.Contains(simpleTypeName))
+            if (SystemTypes.Contains(simpleTypeName))
             {
                 string fullName = SystemTypes.GetFullNameFromTypeName(simpleTypeName);
                 return Type.GetType(fullName);
             }
-            else 
+            else
             {
                 var customTypes = GetAllCustomTypes();
                 if (customTypes.Any(x => x.Name == simpleTypeName))
-                { 
+                {
                     return customTypes.Where(x => x.Name == simpleTypeName).FirstOrDefault();
                 }
                 else
@@ -63,7 +60,7 @@ namespace DynamicObjects
             ConstructorBuilder constructor = tb.DefineDefaultConstructor(MethodAttributes.Public | MethodAttributes.SpecialName | MethodAttributes.RTSpecialName);
 
             foreach (var field in dynamicObject.Fields)
-            { 
+            {
                 CreateProperty(tb, field.Name, field.Type);
             }
 

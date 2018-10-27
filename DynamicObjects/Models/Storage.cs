@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace DynamicObjects.Models
+﻿namespace DynamicObjects.Models
 {
     public class Storage
     {
@@ -16,12 +12,15 @@ namespace DynamicObjects.Models
 
         public string ConnectionString
         {
-            get {
+            get
+            {
                 string connectionString = string.Empty;
-                if (string.IsNullOrEmpty(User) && string.IsNullOrEmpty(Password)) {
+                if (string.IsNullOrEmpty(User) && string.IsNullOrEmpty(Password))
+                {
                     connectionString = $"Data Source={Server};Initial Catalog={Database};Trusted_Connection=True;MultipleActiveResultSets=true";
                 }
-                else {
+                else
+                {
                     connectionString = $"Data Source={Server};Initial Catalog={Database};Persist Security Info=False;User ID={User};Password={Password}";
                 }
 

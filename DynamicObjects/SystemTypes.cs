@@ -1,14 +1,12 @@
 ﻿using Microsoft.CSharp;
-using System;
 using System.CodeDom;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Text;
 
 namespace DynamicObjects
 {
-    static class SystemTypes
+    internal static class SystemTypes
     {
         private static readonly Dictionary<string, string> _types = GetAvailableSystemTypes();
 

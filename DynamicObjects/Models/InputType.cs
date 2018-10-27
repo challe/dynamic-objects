@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace DynamicObjects.Models
 {
@@ -10,7 +9,7 @@ namespace DynamicObjects.Models
         Number
     }
 
-    static class InputTypeExtensions
+    internal static class InputTypeExtensions
     {
         public static Type ToType(this InputType inputType)
         {
