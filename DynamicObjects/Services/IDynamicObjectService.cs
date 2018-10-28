@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 
-namespace DynamicObjects.Storage.Repositories
+namespace DynamicObjects.Services
 {
-    public interface IDynamicObjectRepository
+    public interface IDynamicObjectService
     {
         void Create<T>(T entity) where T : class;
 

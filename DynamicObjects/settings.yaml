@@ -6,7 +6,5 @@ objects:
   - name: Company
     description:  'A basic company object'
     fields:
-      - name: Id
-        type: number
       - name: Name
         type: text

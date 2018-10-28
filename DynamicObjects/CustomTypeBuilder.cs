@@ -16,6 +16,11 @@ namespace DynamicObjects
             return Activator.CreateInstance(GetType(typename));
         }
 
+        public static Assembly GetCustomTypeAssembly()
+        {
+            return GetAssemblyByName(ASSEMBLY_NAME);
+        }
+
         public static Assembly GetAssemblyByName(string name)
         {
             return AppDomain.CurrentDomain.GetAssemblies().
@@ -45,7 +50,7 @@ namespace DynamicObjects
 
         public static List<Type> GetAllCustomTypes()
         {
-            return GetAssemblyByName(ASSEMBLY_NAME).GetTypes().ToList();
+            return GetCustomTypeAssembly().GetTypes().ToList();
         }
 
         public static void CreateType(DynamicObject dynamicObject)

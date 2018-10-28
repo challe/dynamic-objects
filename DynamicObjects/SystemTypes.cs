@@ -32,7 +32,7 @@ namespace DynamicObjects
                         var csTypeName = provider.GetTypeOutput(typeRef);
 
                         // Ignore qualified types.
-                        if (csTypeName.IndexOf('.') == -1)
+                        if (csTypeName.IndexOf('.') == -1 || csTypeName == "System.DateTime")
                         {
                             types.Add(csTypeName, type.FullName);
                         }

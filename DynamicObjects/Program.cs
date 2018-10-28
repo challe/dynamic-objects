@@ -1,4 +1,7 @@
-﻿using DynamicObjects.Models;
+﻿using DynamicObjects.ExtensionMethods;
+using DynamicObjects.Models;
+using DynamicObjects.Services;
+using DynamicObjects.Storage;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -12,19 +15,19 @@ namespace DynamicObjects
             var deserializer = new YamlDeserializer();
             var settings = deserializer.DeserializeConfiguration<Settings>();
 
-            settings.DynamicObjects.ForEach(type => CustomTypeBuilder.CreateType(type));
-
-            // Types to store in DB
-            List<Type> types = CustomTypeBuilder.GetAllCustomTypes();
+            settings.DynamicObjects.AddIdentityColumns();
+            settings.DynamicObjects.CreateTypes();
 
             IServiceCollection services = new ServiceCollection();
-            Startup startup = new Startup();
-            startup.ConfigureServices(services, settings);
+            services.AddAllServices(settings);
+
+            IServiceProvider serviceProvider = services.BuildServiceProvider();
+            DynamicObjectService service = serviceProvider.GetRequiredService<DynamicObjectService>();
 
             dynamic obj = CustomTypeBuilder.CreateInstance("Company");
-
-            obj.Id = 123456;
             obj.Name = "Sörens El";
+
+            service.Create(obj);
 
             Console.WriteLine(obj.Id);
             Console.WriteLine(obj.Name);

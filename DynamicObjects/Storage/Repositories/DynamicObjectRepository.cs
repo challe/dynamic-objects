@@ -12,6 +12,12 @@ namespace DynamicObjects.Storage.Repositories
             _context = context;
         }
 
+        public void Create<T>(T entity) where T : class
+        {
+            _context.Set<T>().Add(entity);
+            _context.SaveChanges();
+        }
+
         public List<T> Find<T>() where T : class
         {
             return _context.Set<T>().ToList();

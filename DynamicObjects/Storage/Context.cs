@@ -1,6 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 
 namespace DynamicObjects.Storage
 {
@@ -12,17 +15,20 @@ namespace DynamicObjects.Storage
         {
             _entityTypes = CustomTypeBuilder.GetAllCustomTypes();
 
-            Database.EnsureCreated();
+            //Database.EnsureDeleted();
+            //Database.EnsureCreated();
+            Database.Migrate();
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            var entityMethod = typeof(ModelBuilder).GetMethod("Entity");
-
-            foreach (var type in _entityTypes)
-            {
-                entityMethod.MakeGenericMethod(type).Invoke(modelBuilder, new object[] { });
-            }
+            Type type = _entityTypes.First();
+            var typeOfContext = modelBuilder.GetType();
+            var method = typeOfContext.GetMethods().Where(m =>
+                m.Name == nameof(ModelBuilder.Entity) &&
+                m.ContainsGenericParameters).First();
+            var genericMethod = method.MakeGenericMethod(type);
+            genericMethod.Invoke(modelBuilder, null);
         }
     }
 }
