@@ -1,12 +1,12 @@
-﻿using DynamicObjects.ExtensionMethods;
-using DynamicObjects.Models;
-using DynamicObjects.Services;
-using DynamicObjects.Storage;
+﻿using ObjectLibrary.ExtensionMethods;
+using ObjectLibrary.Models;
+using ObjectLibrary.Services;
+using ObjectLibrary.Storage;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 
-namespace DynamicObjects
+namespace ObjectLibrary
 {
     internal class Program
     {

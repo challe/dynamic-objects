@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using YamlDotNet.Serialization;
 
-namespace DynamicObjects.Models
+namespace ObjectLibrary.Models
 {
     public class Settings
     {

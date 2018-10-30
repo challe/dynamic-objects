@@ -1,0 +1,10 @@
+﻿name: 'CRM Light'
+storage:
+  server: (LocalDB)\MSSQLLocalDB
+  database: DynamicObjects
+objects:
+  - name: Company
+    description:  'A basic company object'
+    fields:
+      - name: Name
+        type: text

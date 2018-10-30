@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace DynamicObjects.Models
+namespace ObjectLibrary.Models
 {
     public class DynamicObject
     {

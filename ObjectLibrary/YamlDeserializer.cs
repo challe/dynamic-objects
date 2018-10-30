@@ -2,7 +2,7 @@
 using YamlDotNet.Serialization;
 using YamlDotNet.Serialization.NamingConventions;
 
-namespace DynamicObjects
+namespace ObjectLibrary
 {
     public class YamlDeserializer
     {

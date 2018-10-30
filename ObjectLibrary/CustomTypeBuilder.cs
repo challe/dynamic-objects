@@ -1,17 +1,17 @@
-﻿using DynamicObjects.Models;
+﻿using ObjectLibrary.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Reflection.Emit;
 
-namespace DynamicObjects
+namespace ObjectLibrary
 {
     public static class CustomTypeBuilder
     {
         private const string ASSEMBLY_NAME = "DynamicObjectsCustomAssembly";
 
-        internal static dynamic CreateInstance(string typename)
+        public static dynamic CreateInstance(string typename)
         {
             return Activator.CreateInstance(GetType(typename));
         }

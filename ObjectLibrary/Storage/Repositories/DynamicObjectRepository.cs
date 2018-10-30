@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Dynamic;
 
-namespace DynamicObjects.Storage.Repositories
+namespace ObjectLibrary.Storage.Repositories
 {
     public class DynamicObjectRepository : IDynamicObjectRepository
     {
@@ -21,6 +22,11 @@ namespace DynamicObjects.Storage.Repositories
         public List<T> Find<T>() where T : class
         {
             return _context.Set<T>().ToList();
+        }
+
+        public T FindById<T>(int id) where T : class
+        {
+            return _context.Set<T>().Where($"id == @0", id).FirstOrDefault();
         }
     }
 }

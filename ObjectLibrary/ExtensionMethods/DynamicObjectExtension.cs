@@ -1,10 +1,10 @@
-﻿using DynamicObjects.Models;
+﻿using ObjectLibrary.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace DynamicObjects.ExtensionMethods
+namespace ObjectLibrary.ExtensionMethods
 {
     public static class DynamicObjectExtension
     {

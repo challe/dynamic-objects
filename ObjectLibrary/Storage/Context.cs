@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
-namespace DynamicObjects.Storage
+namespace ObjectLibrary.Storage
 {
     public class Context : DbContext
     {
@@ -15,9 +15,8 @@ namespace DynamicObjects.Storage
         {
             _entityTypes = CustomTypeBuilder.GetAllCustomTypes();
 
-            //Database.EnsureDeleted();
-            //Database.EnsureCreated();
-            Database.Migrate();
+            Database.EnsureDeleted();
+            Database.EnsureCreated();
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

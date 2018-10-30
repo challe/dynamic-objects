@@ -1,11 +1,11 @@
-﻿using DynamicObjects.Models;
-using DynamicObjects.Services;
-using DynamicObjects.Storage;
-using DynamicObjects.Storage.Repositories;
+﻿using ObjectLibrary.Models;
+using ObjectLibrary.Services;
+using ObjectLibrary.Storage;
+using ObjectLibrary.Storage.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace DynamicObjects.ExtensionMethods
+namespace ObjectLibrary.ExtensionMethods
 {
     public static class IServiceCollectionExtension
     {   

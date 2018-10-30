@@ -1,9 +1,9 @@
-﻿using DynamicObjects.Storage.Repositories;
+﻿using ObjectLibrary.Storage.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace DynamicObjects.Services
+namespace ObjectLibrary.Services
 {
     public class DynamicObjectService : IDynamicObjectService
     {
@@ -23,6 +23,12 @@ namespace DynamicObjects.Services
         {
             var list = _dynamicObjectRepository.Find<T>();
             return list;
+        }
+
+        public T FindById<T>(int id) where T : class
+        {
+            var entity = _dynamicObjectRepository.FindById<T>(id);
+            return entity;
         }
     }
 }

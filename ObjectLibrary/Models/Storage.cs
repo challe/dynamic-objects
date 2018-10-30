@@ -1,4 +1,4 @@
-﻿namespace DynamicObjects.Models
+﻿namespace ObjectLibrary.Models
 {
     public class Storage
     {
