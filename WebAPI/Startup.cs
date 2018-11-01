@@ -16,6 +16,7 @@ using ObjectLibrary.ExtensionMethods;
 using ObjectLibrary;
 using ObjectLibrary.Models;
 using ObjectLibrary.Services;
+using GraphQL.SchemaGenerator;
 
 namespace WebAPI
 {
@@ -34,31 +35,32 @@ namespace WebAPI
             settings.DynamicObjects.CreateTypes();
 
             services.AddAllServices(settings);
-            services.AddSingleton<HelloWorldQuery>();
 
             var entityTypes = CustomTypeBuilder.GetAllCustomTypes();
-
+            var schemaTypes = new List<Type>();
             foreach (var type in entityTypes)
             {
-                // TODO: Implement
-                //var myGenericObject = Activator.CreateInstance(typeof(DynamicObjectType<>).MakeGenericType(type));
-                //services.AddSingleton(myGenericObject);
+                IServiceProvider serviceProvider = services.BuildServiceProvider();
+                var service = serviceProvider.GetRequiredService<DynamicObjectService>();
+                var schemaType = Activator.CreateInstance(typeof(DynamicObjectType<>).MakeGenericType(type), new object[] { service }).GetType();
+                schemaTypes.Add(schemaType);
+                services.AddSingleton(schemaType);
             }
 
-            // TODO: Make generic (using foreach loop above)
-            services.AddSingleton<CompanyType>();
+            IServiceProvider schemaServiceProvider = services.BuildServiceProvider();
+            var schemaGenerator = new SchemaGenerator(schemaServiceProvider);
+            var schema = schemaGenerator.CreateSchema(schemaTypes.ToArray());
 
             services.AddSingleton<IDocumentExecuter, DocumentExecuter>();
-            var sp = services.BuildServiceProvider();
-            services.AddSingleton<ISchema>(new GraphQLSchema(new FuncDependencyResolver(type => sp.GetService(type))));
+            services.AddSingleton<ISchema>(schema);
 
-            IServiceProvider serviceProvider = services.BuildServiceProvider();
-            DynamicObjectService service = serviceProvider.GetRequiredService<DynamicObjectService>();
+            //IServiceProvider serviceProvider = services.BuildServiceProvider();
+            //DynamicObjectService service = serviceProvider.GetRequiredService<DynamicObjectService>();
 
-            dynamic obj = CustomTypeBuilder.CreateInstance("Company");
-            obj.Name = "Sörens El";
+            //dynamic obj = CustomTypeBuilder.CreateInstance("Company");
+            //obj.Name = "Sörens El";
 
-            service.Create(obj);
+            //service.Create(obj);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

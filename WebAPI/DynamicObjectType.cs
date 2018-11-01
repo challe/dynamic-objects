@@ -1,4 +1,8 @@
-﻿using GraphQL.Types;
+﻿using GraphQL.SchemaGenerator.Attributes;
+using GraphQL.Types;
+using ObjectLibrary.Services;
+using ObjectLibrary.Storage;
+using ObjectLibrary.Storage.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,25 +14,21 @@ namespace WebAPI
 {
     public class DynamicObjectType<T> : ObjectGraphType<T> where T : class
     {
-        public static Expression<Func<T, object>> GetLambda(string property)
-        {
-            ParameterExpression parameter = Expression.Parameter(typeof(T));
-            MemberExpression field = Expression.PropertyOrField(parameter, property);
+        private readonly IDynamicObjectService _dynamicObjectService;
 
-            Expression<Func<T, object>> retval = Expression.Lambda<Func<T, object>>(Expression.Convert(field, typeof(object)), parameter);
-            var test = retval.Compile();
-            return retval;
+        public DynamicObjectType(IDynamicObjectService dynamicObjectService)
+        {
+            _dynamicObjectService = dynamicObjectService;
         }
 
-        public DynamicObjectType()
+        [GraphRoute]
+        public T DynamicObject(int id)
         {
-            PropertyInfo[] properties = typeof(T).GetProperties();
+            var method = _dynamicObjectService.GetType().GetMethod("FindById");
+            var genericMethod = method.MakeGenericMethod(typeof(T));
+            var result = genericMethod.Invoke(_dynamicObjectService, new object[] { id });
 
-            foreach(PropertyInfo propertyInfo in properties)
-            {
-                Expression<Func<T, object>> lambdaExpression = GetLambda(propertyInfo.Name);
-                Field(lambdaExpression);
-            }
+            return (T)result;
         }
     }
 }

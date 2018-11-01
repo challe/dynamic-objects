@@ -24,6 +24,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\GraphQl.SchemaGenerator\GraphQl.SchemaGenerator.csproj" />
     <ProjectReference Include="..\ObjectLibrary\ObjectLibrary.csproj" />
   </ItemGroup>
 
