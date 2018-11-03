@@ -1,5 +1,6 @@
 ﻿using GraphQL.SchemaGenerator.Attributes;
 using GraphQL.Types;
+using ObjectLibrary;
 using ObjectLibrary.Services;
 using ObjectLibrary.Storage;
 using ObjectLibrary.Storage.Repositories;
@@ -34,7 +35,9 @@ namespace WebAPI
         [GraphRoute(isMutation: true)]
         public T DynamicObject(T entity)
         {
-            var method = _dynamicObjectService.GetType().GetMethod("Create");
+            var methodName = ((int)PropertyUtilities.TryGetProperty(entity, "Id") != 0) ?
+                "Update" : "Create";
+            var method = _dynamicObjectService.GetType().GetMethod(methodName);
             var genericMethod = method.MakeGenericMethod(typeof(T));
             var result = genericMethod.Invoke(_dynamicObjectService, new object[] { entity });
 

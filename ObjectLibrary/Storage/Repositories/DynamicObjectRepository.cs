@@ -17,7 +17,11 @@ namespace ObjectLibrary.Storage.Repositories
 
         public T Create<T>(T entity) where T : class
         {
-            SetDefaultValues(entity);
+            PropertyUtilities.TrySetProperty(entity, "Created", DateTime.Now);
+            PropertyUtilities.TrySetProperty(entity, "CreatedBy", 1);
+            PropertyUtilities.TrySetProperty(entity, "Modified", DateTime.Now);
+            PropertyUtilities.TrySetProperty(entity, "ModifiedBy", 1);
+
             _context.Set<T>().Add(entity);
             _context.SaveChanges();
 
@@ -34,19 +38,26 @@ namespace ObjectLibrary.Storage.Repositories
             return _context.Set<T>().Where($"id == @0", id).FirstOrDefault();
         }
 
-        private void SetDefaultValues<T>(T entity)
+        public T Update<T>(T entity) where T : class
         {
-            TrySetProperty(entity, "Created", DateTime.Now);
-            TrySetProperty(entity, "CreatedBy", 1);
-            TrySetProperty(entity, "Modified", DateTime.Now);
-            TrySetProperty(entity, "ModifiedBy", 1);
-        }
+            var fieldsToIgnore = new string[] { "Id", "Created", "CreatedBy", "Modified", "ModifiedBy" };
+            int id = (int)PropertyUtilities.TryGetProperty(entity, "Id");
+            T found = FindById<T>(id);
 
-        private void TrySetProperty(object obj, string property, object value)
-        {
-            var prop = obj.GetType().GetProperty(property, BindingFlags.Public | BindingFlags.Instance);
-            if (prop != null && prop.CanWrite)
-                prop.SetValue(obj, value, null);
+            foreach(PropertyInfo property in typeof(T).GetProperties())
+            {
+                if(!fieldsToIgnore.Contains(property.Name))
+                {
+                    PropertyUtilities.TrySetProperty(found, property.Name, property.GetValue(entity));
+                }
+            }
+
+            PropertyUtilities.TrySetProperty(found, "Modified", DateTime.Now);
+            PropertyUtilities.TrySetProperty(found, "ModifiedBy", 1);
+
+            _context.SaveChanges();
+
+            return found;
         }
     }
 }

@@ -19,6 +19,11 @@ namespace ObjectLibrary.Services
             return _dynamicObjectRepository.Create(entity);
         }
 
+        public T Update<T>(T entity) where T : class
+        {
+            return _dynamicObjectRepository.Update(entity);
+        }
+
         public List<T> Find<T>() where T : class
         {
             var list = _dynamicObjectRepository.Find<T>();
