@@ -14,9 +14,9 @@ namespace ObjectLibrary.Services
             _dynamicObjectRepository = dynamicObjectRepository;
         }
 
-        public void Create<T>(T entity) where T : class
+        public T Create<T>(T entity) where T : class
         {
-            _dynamicObjectRepository.Create(entity);
+            return _dynamicObjectRepository.Create(entity);
         }
 
         public List<T> Find<T>() where T : class

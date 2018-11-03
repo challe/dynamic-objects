@@ -17,6 +17,7 @@ using ObjectLibrary;
 using ObjectLibrary.Models;
 using ObjectLibrary.Services;
 using GraphQL.SchemaGenerator;
+using GraphQL.Utilities;
 
 namespace WebAPI
 {
@@ -31,7 +32,7 @@ namespace WebAPI
             var deserializer = new YamlDeserializer();
             var settings = deserializer.DeserializeConfiguration<Settings>();
 
-            settings.DynamicObjects.AddIdentityColumns();
+            settings.DynamicObjects.AddDefaultFields();
             settings.DynamicObjects.CreateTypes();
 
             services.AddAllServices(settings);
@@ -51,16 +52,11 @@ namespace WebAPI
             var schemaGenerator = new SchemaGenerator(schemaServiceProvider);
             var schema = schemaGenerator.CreateSchema(schemaTypes.ToArray());
 
+            //SchemaPrinter printer = new SchemaPrinter(schema);
+            //string wat = printer.Print();
+
             services.AddSingleton<IDocumentExecuter, DocumentExecuter>();
             services.AddSingleton<ISchema>(schema);
-
-            //IServiceProvider serviceProvider = services.BuildServiceProvider();
-            //DynamicObjectService service = serviceProvider.GetRequiredService<DynamicObjectService>();
-
-            //dynamic obj = CustomTypeBuilder.CreateInstance("Company");
-            //obj.Name = "Sörens El";
-
-            //service.Create(obj);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

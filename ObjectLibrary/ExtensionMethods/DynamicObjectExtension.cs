@@ -8,7 +8,7 @@ namespace ObjectLibrary.ExtensionMethods
 {
     public static class DynamicObjectExtension
     {
-        public static void AddIdentityColumns(this List<DynamicObject> list)
+        public static void AddDefaultFields(this List<DynamicObject> list)
         {
             foreach (DynamicObject dynamicObject in list)
             {
@@ -17,10 +17,10 @@ namespace ObjectLibrary.ExtensionMethods
                     dynamicObject.Fields.Insert(0, new Field("Id", InputType.Number));
                 }
 
-                dynamicObject.Fields.Add(new Field("Created", InputType.DateTime));
-                dynamicObject.Fields.Add(new Field("CreatedBy", InputType.Number));
-                dynamicObject.Fields.Add(new Field("Modified", InputType.DateTime));
-                dynamicObject.Fields.Add(new Field("ModifiedBy", InputType.Number));
+                dynamicObject.Fields.Add(new Field("Created", InputType.DateTime, true));
+                dynamicObject.Fields.Add(new Field("CreatedBy", InputType.Number, true));
+                dynamicObject.Fields.Add(new Field("Modified", InputType.DateTime, true));
+                dynamicObject.Fields.Add(new Field("ModifiedBy", InputType.Number, true));
             }
         }
 

@@ -12,7 +12,7 @@ namespace ObjectLibrary.Models
 
     internal static class InputTypeExtensions
     {
-        public static Type ToType(this InputType inputType)
+        public static Type ToType(this InputType inputType, bool isNullable)
         {
             var mapper = new Dictionary<InputType, string>
             {
@@ -21,7 +21,12 @@ namespace ObjectLibrary.Models
                 { InputType.DateTime, "System.DateTime" }
             };
 
-            return CustomTypeBuilder.GetType(mapper[inputType]);
+            var type = CustomTypeBuilder.GetType(mapper[inputType]);
+
+            if (isNullable)
+                type = typeof(Nullable<>).MakeGenericType(type);
+
+            return type;
         }
     }
 }

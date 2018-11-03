@@ -30,5 +30,15 @@ namespace WebAPI
 
             return (T)result;
         }
+
+        [GraphRoute(isMutation: true)]
+        public T DynamicObject(T entity)
+        {
+            var method = _dynamicObjectService.GetType().GetMethod("Create");
+            var genericMethod = method.MakeGenericMethod(typeof(T));
+            var result = genericMethod.Invoke(_dynamicObjectService, new object[] { entity });
+
+            return (T)result;
+        }
     }
 }

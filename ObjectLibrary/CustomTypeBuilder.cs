@@ -1,4 +1,5 @@
-﻿using ObjectLibrary.Models;
+﻿using GraphQL.SchemaGenerator.Attributes;
+using ObjectLibrary.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -64,9 +65,9 @@ namespace ObjectLibrary
             TypeBuilder tb = GetTypeBuilder(dynamicObject.Name);
             ConstructorBuilder constructor = tb.DefineDefaultConstructor(MethodAttributes.Public | MethodAttributes.SpecialName | MethodAttributes.RTSpecialName);
 
-            foreach (var field in dynamicObject.Fields)
+            foreach (Field field in dynamicObject.Fields)
             {
-                CreateProperty(tb, field.Name, field.Type);
+                CreateProperty(tb, field);
             }
 
             TypeInfo objectTypeInfo = tb.CreateTypeInfo();
@@ -89,8 +90,11 @@ namespace ObjectLibrary
             return tb;
         }
 
-        private static void CreateProperty(TypeBuilder tb, string propertyName, Type propertyType)
+        private static void CreateProperty(TypeBuilder tb, Field field)
         {
+            string propertyName = field.Name;
+            Type propertyType = field.Type;
+            
             FieldBuilder fieldBuilder = tb.DefineField("_" + propertyName, propertyType, FieldAttributes.Private);
 
             PropertyBuilder propertyBuilder = tb.DefineProperty(propertyName, PropertyAttributes.HasDefault, propertyType, null);
@@ -123,6 +127,14 @@ namespace ObjectLibrary
 
             propertyBuilder.SetGetMethod(getPropMthdBldr);
             propertyBuilder.SetSetMethod(setPropMthdBldr);
+
+            // Custom attribute
+            if(field.ExcludeFromGraph) { 
+                var attrCtorParams = new Type[] { typeof(Type), typeof(bool) };
+                var attrCtorInfo = typeof(GraphTypeAttribute).GetConstructor(attrCtorParams);
+                var attrBuilder = new CustomAttributeBuilder(attrCtorInfo, new object[] { null, true });
+                propertyBuilder.SetCustomAttribute(attrBuilder);
+            }
         }
     }
 }
