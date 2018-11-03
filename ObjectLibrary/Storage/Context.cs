@@ -15,7 +15,7 @@ namespace ObjectLibrary.Storage
         {
             _entityTypes = CustomTypeBuilder.GetAllCustomTypes();
 
-            Database.EnsureDeleted();
+            //Database.EnsureDeleted();
             Database.EnsureCreated();
         }
 
