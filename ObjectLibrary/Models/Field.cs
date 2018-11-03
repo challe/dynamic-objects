@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using YamlDotNet.Serialization;
 
 namespace ObjectLibrary.Models
@@ -9,7 +10,7 @@ namespace ObjectLibrary.Models
         {
         }
 
-        public Field(string name, InputType type, bool nullable = false)
+        public Field(string name, string type, bool nullable = false)
         {
             Name = name;
             InputType = type;
@@ -23,11 +24,38 @@ namespace ObjectLibrary.Models
         public bool IsNullable { get; set; }
 
         [YamlMember(Alias = "type")]
-        public InputType InputType { get; set; }
+        public string InputType { get; set; }
 
         public Type Type
         {
-            get { return InputType.ToType(IsNullable); }
+            get { return GetType(InputType, IsNullable); }
+        }
+
+        private Type GetType(string inputType, bool isNullable)
+        {
+            var mapper = new Dictionary<string, string>
+            {
+                { "Text", "string" },
+                { "Number", "int" },
+                { "DateTime", "System.DateTime" }
+            };
+
+            string name = String.Empty;
+            if (mapper.ContainsKey(inputType))
+            { 
+                name = mapper[inputType];
+            }
+            else
+            { 
+                name = inputType;
+            }
+
+            var type = CustomTypeBuilder.GetType(name);
+
+            if (isNullable)
+                type = typeof(Nullable<>).MakeGenericType(type);
+
+            return type;
         }
     }
 }

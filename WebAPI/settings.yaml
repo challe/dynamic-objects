@@ -3,8 +3,17 @@ storage:
   server: (LocalDB)\MSSQLLocalDB
   database: DynamicObjects
 objects:
-  - name: Company
+  - name: Person
+    description:  'A basic person object'
+    fields:
+      - name: Firstname
+        type: Text
+      - name: Lastname
+        type: Text
+  - name: Organization
     description:  'A basic company object'
     fields:
       - name: Name
-        type: text
+        type: Text
+      - name: Person
+        type: Person

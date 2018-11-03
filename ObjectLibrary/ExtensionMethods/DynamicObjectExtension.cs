@@ -14,21 +14,13 @@ namespace ObjectLibrary.ExtensionMethods
             {
                 if(!dynamicObject.Fields.Any(x => x.Name == "Id"))
                 {
-                    dynamicObject.Fields.Insert(0, new Field("Id", InputType.Number));
+                    dynamicObject.Fields.Insert(0, new Field("Id", "Number"));
                 }
 
-                dynamicObject.Fields.Add(new Field("Created", InputType.DateTime, true));
-                dynamicObject.Fields.Add(new Field("CreatedBy", InputType.Number, true));
-                dynamicObject.Fields.Add(new Field("Modified", InputType.DateTime, true));
-                dynamicObject.Fields.Add(new Field("ModifiedBy", InputType.Number, true));
-            }
-        }
-
-        public static void CreateTypes(this List<DynamicObject> list)
-        {
-            foreach (DynamicObject dynamicObject in list)
-            {
-                CustomTypeBuilder.CreateType(dynamicObject);
+                dynamicObject.Fields.Add(new Field("Created", "DateTime", true));
+                dynamicObject.Fields.Add(new Field("CreatedBy", "Number", true));
+                dynamicObject.Fields.Add(new Field("Modified", "DateTime", true));
+                dynamicObject.Fields.Add(new Field("ModifiedBy", "Number", true));
             }
         }
     }

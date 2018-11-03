@@ -33,7 +33,9 @@ namespace WebAPI
             var settings = deserializer.DeserializeConfiguration<Settings>();
 
             settings.DynamicObjects.AddDefaultFields();
-            settings.DynamicObjects.CreateTypes();
+
+            var objectGenerator = new ObjectGenerator();            
+            objectGenerator.CreateObjects(settings.DynamicObjects);
 
             services.AddAllServices(settings);
 
@@ -52,8 +54,8 @@ namespace WebAPI
             var schemaGenerator = new SchemaGenerator(schemaServiceProvider);
             var schema = schemaGenerator.CreateSchema(schemaTypes.ToArray());
 
-            //SchemaPrinter printer = new SchemaPrinter(schema);
-            //string wat = printer.Print();
+            SchemaPrinter printer = new SchemaPrinter(schema);
+            string wat = printer.Print();
 
             services.AddSingleton<IDocumentExecuter, DocumentExecuter>();
             services.AddSingleton<ISchema>(schema);
