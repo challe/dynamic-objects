@@ -1,23 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using GraphQL;
-using GraphQL.Http;
+﻿using GraphQL;
+using GraphQL.SchemaGenerator;
 using GraphQL.Types;
+using GraphQL.Utilities;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
-using Newtonsoft.Json;
-using Microsoft.AspNetCore.Mvc;
-using ObjectLibrary.ExtensionMethods;
 using ObjectLibrary;
+using ObjectLibrary.ExtensionMethods;
 using ObjectLibrary.Models;
 using ObjectLibrary.Services;
-using GraphQL.SchemaGenerator;
-using GraphQL.Utilities;
+using System;
+using System.Collections.Generic;
 
 namespace WebAPI
 {
@@ -27,14 +20,14 @@ namespace WebAPI
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc();            
+            services.AddMvc();
 
             var deserializer = new YamlDeserializer();
             var settings = deserializer.DeserializeConfiguration<Settings>();
 
             settings.DynamicObjects.AddDefaultFields();
 
-            var objectGenerator = new ObjectGenerator();            
+            var objectGenerator = new ObjectGenerator();
             objectGenerator.CreateObjects(settings.DynamicObjects);
 
             services.AddAllServices(settings);

@@ -1,7 +1,4 @@
-﻿using GraphQL.SchemaGenerator.Attributes;
-using ObjectLibrary.Models;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Linq;
 using System.Reflection;
 using System.Reflection.Emit;
@@ -11,7 +8,7 @@ namespace ObjectLibrary
     public static class CustomAssemblyBuilder
     {
         private static readonly string _customAssemblyName = "DynamicObjectsCustomAssembly";
-        
+
         public static string CustomAssemblyName()
         {
             return _customAssemblyName;

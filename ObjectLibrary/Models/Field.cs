@@ -42,11 +42,11 @@ namespace ObjectLibrary.Models
 
             string name = String.Empty;
             if (mapper.ContainsKey(inputType))
-            { 
+            {
                 name = mapper[inputType];
             }
             else
-            { 
+            {
                 name = inputType;
             }
 

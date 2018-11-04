@@ -1,8 +1,8 @@
-﻿using System;
-using System.Threading.Tasks;
-using GraphQL;
+﻿using GraphQL;
 using GraphQL.Types;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Threading.Tasks;
 
 namespace WebAPI.Controllers
 {

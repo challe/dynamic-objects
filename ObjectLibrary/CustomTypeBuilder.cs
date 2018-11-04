@@ -1,10 +1,7 @@
-﻿using GraphQL.SchemaGenerator.Attributes;
-using ObjectLibrary.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Reflection.Emit;
 
 namespace ObjectLibrary
 {
@@ -12,7 +9,7 @@ namespace ObjectLibrary
     {
         public static List<Type> GetAllCustomTypes()
         {
-            var assembly = CustomAssemblyBuilder.GetCustomAssembly(); 
+            var assembly = CustomAssemblyBuilder.GetCustomAssembly();
 
             try
             {

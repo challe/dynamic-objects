@@ -44,9 +44,9 @@ namespace ObjectLibrary.Storage.Repositories
             int id = (int)PropertyUtilities.TryGetProperty(entity, "Id");
             T found = FindById<T>(id);
 
-            foreach(PropertyInfo property in typeof(T).GetProperties())
+            foreach (PropertyInfo property in typeof(T).GetProperties())
             {
-                if(!fieldsToIgnore.Contains(property.Name))
+                if (!fieldsToIgnore.Contains(property.Name))
                 {
                     PropertyUtilities.TrySetProperty(found, property.Name, property.GetValue(entity));
                 }

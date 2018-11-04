@@ -1,8 +1,6 @@
 ﻿using ObjectLibrary.Models;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace ObjectLibrary.ExtensionMethods
 {
@@ -12,7 +10,7 @@ namespace ObjectLibrary.ExtensionMethods
         {
             foreach (DynamicObject dynamicObject in list)
             {
-                if(!dynamicObject.Fields.Any(x => x.Name == "Id"))
+                if (!dynamicObject.Fields.Any(x => x.Name == "Id"))
                 {
                     dynamicObject.Fields.Insert(0, new Field("Id", "Number"));
                 }

@@ -1,9 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 
 namespace ObjectLibrary.Storage
 {
@@ -21,7 +19,7 @@ namespace ObjectLibrary.Storage
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            _entityTypes.ForEach(type => CreateEntity(modelBuilder, type));   
+            _entityTypes.ForEach(type => CreateEntity(modelBuilder, type));
         }
 
         private void CreateEntity(ModelBuilder modelBuilder, Type type)
@@ -33,11 +31,12 @@ namespace ObjectLibrary.Storage
 
             foreach (var pi in (type).GetProperties())
             {
-                if(pi.Name == "Id")
+                if (pi.Name == "Id")
                     modelBuilder.Entity(type).HasKey(pi.Name);
 
                 // If the property type is a custom one, ignore it and add instead an id
-                if (_entityTypes.Contains(pi.PropertyType)) { 
+                if (_entityTypes.Contains(pi.PropertyType))
+                {
                     modelBuilder.Entity(type).Property(typeof(int?), $"{pi.Name}Id");
                 }
             }
