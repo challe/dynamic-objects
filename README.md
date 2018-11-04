@@ -1,5 +1,6 @@
 # dynamic-objects
-Describe your applicaton in a YAML-file and start the WebAPI. Tables, relations and a GrapQL schema is automatically created for you.
+The purpose of this projectis for you to be able to simply describe your applicaton in a YAML-file, and that's it.
+You then start the application, and everything is automatically set up for you. CLR Objects, tables (and their relations) and a GrapQL schema is automatically created for you.
 
 ## Example input
 ```yaml
@@ -24,7 +25,7 @@ objects:
         type: Person
 ```
 
-### Tables are automatically created
+## Generated tables
 * The fields `Id`, `Created`, `CreatedBy`, `Modified` and `ModifiedBy` are added automatically for all objects
 * Foreign keys are created when referencing other dynamic objects
 ```sql
@@ -52,6 +53,8 @@ CREATE TABLE [dbo].[Organization] (
 
 ```
 
+## GraphQL examples
+
 ### Create organization
 ```json
 {
@@ -70,7 +73,7 @@ CREATE TABLE [dbo].[Organization] (
 }
 ```
 
-### View organization
+### Get organization
 ```json
 {
 	"query": "{organization(id: 1) { id name person { id firstname lastname } created modified }}"
