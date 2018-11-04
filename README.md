@@ -56,6 +56,8 @@ CREATE TABLE [dbo].[Organization] (
     CONSTRAINT [PK_Organization] PRIMARY KEY CLUSTERED ([Id] ASC)
 );
 
+ALTER TABLE [dbo].[Organization]
+    ADD CONSTRAINT [FK_Organization_Person_PersonId] FOREIGN KEY ([PersonId]) REFERENCES [dbo].[Person] ([Id]);
 ```
 
 ## GraphQL examples
