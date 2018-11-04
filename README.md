@@ -1,6 +1,10 @@
 # dynamic-objects
-The purpose of this projectis for you to be able to simply describe your applicaton in a YAML-file, and that's it.
-You then start the application, and everything is automatically set up for you. CLR Objects, tables (and their relations) and a GrapQL schema is automatically created for you.
+The purpose of this project is for you to be able to simply describe your applicaton in a YAML-file, and that's it.
+You then start the application, and everything is automatically set up for you:
+* CLR objects are created
+* Entity framework entities are created
+* Tables (and their relations) are created
+* A GrapQL schema is created
 
 ## Example input
 ```yaml
@@ -27,7 +31,8 @@ objects:
 
 ## Generated tables
 * The fields `Id`, `Created`, `CreatedBy`, `Modified` and `ModifiedBy` are added automatically for all objects
-* Foreign keys are created when referencing other dynamic objects
+* Foreign keys are created when referencing other dynamic objects (as in the example)
+
 ```sql
 CREATE TABLE [dbo].[Person] (
     [Id]         INT            IDENTITY (1, 1) NOT NULL,
