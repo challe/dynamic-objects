@@ -46,13 +46,13 @@ CREATE TABLE [dbo].[Person] (
 );
 
 CREATE TABLE [dbo].[Organization] (
-    [Id]         INT            IDENTITY (1, 1) NOT NULL,
-    [Name]       NVARCHAR (MAX) NULL,
-    [Created]    DATETIME2 (7)  NULL,
-    [CreatedBy]  INT            NULL,
-    [Modified]   DATETIME2 (7)  NULL,
-    [ModifiedBy] INT            NULL,
-    [PersonsId]  INT            NOT NULL,
+    [Id]             INT            IDENTITY (1, 1) NOT NULL,
+    [Name]           NVARCHAR (MAX) NULL,
+    [PersonId]       INT            NULL,
+    [Created]        DATETIME2 (7)  NULL,
+    [CreatedBy]      INT            NULL,
+    [Modified]       DATETIME2 (7)  NULL,
+    [ModifiedBy]     INT            NULL,
     CONSTRAINT [PK_Organization] PRIMARY KEY CLUSTERED ([Id] ASC)
 );
 
